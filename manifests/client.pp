@@ -88,6 +88,12 @@ class simp_openldap::client (
     content => template("${module_name}/ldaprc.erb")
   }
 
+  group { 'ldap':
+    ensure    => 'present',
+    allowdupe => false,
+    gid       => 55,
+  }
+
   package { "openldap-clients.${facts['hardwaremodel']}": ensure => 'latest' }
   package { 'nss-pam-ldapd': ensure => 'latest' }
 }
